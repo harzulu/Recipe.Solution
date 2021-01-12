@@ -1,0 +1,29 @@
+@{
+  Layout = "_Layout";
+}
+
+@using RecipeBook.Models;
+@model List<RecipeBook.Models.Instruction>;
+
+<h1>Instruction List</h1>
+
+@if (@Model.Count == 0)
+{
+    <h3>No Instructions currently listed.</h3>
+}
+
+@foreach (Instruction Instruction in Model)
+{
+  <li>@Html.ActionLink($"{Instruction.Blurb}", "Details", new { id = Instruction.InstructionId })</li>
+}
+
+
+<nav class="navbar navbar-light">  
+  <div class="container-fluid" id="nav-background">  
+    <ul class="nav navbar-nav">
+      <button type="button" class="btn btn-dark">
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span><li>@Html.ActionLink("Add new Instruction", "Create")</li>  
+      </button>
+    </ul>
+  </div>
+</nav>

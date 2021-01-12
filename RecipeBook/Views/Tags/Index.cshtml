@@ -1,3 +1,29 @@
 @{
   Layout = "_Layout";
 }
+
+@using RecipeBook.Models;
+@model List<RecipeBook.Models.Tag>;
+
+<h1>Tag List</h1>
+
+@if (@Model.Count == 0)
+{
+    <h3>No Tags currently listed.</h3>
+}
+
+@foreach (Tag Tag in Model)
+{
+  <li>@Html.ActionLink($"{Tag.Category}", "Details", new { id = Tag.TagId })</li>
+}
+
+
+<nav class="navbar navbar-light">  
+  <div class="container-fluid" id="nav-background">  
+    <ul class="nav navbar-nav">
+      <button type="button" class="btn btn-dark">
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span><li>@Html.ActionLink("Add new Tag", "Create")</li>  
+      </button>
+    </ul>
+  </div>
+</nav>

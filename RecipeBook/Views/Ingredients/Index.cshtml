@@ -1,3 +1,29 @@
 @{
   Layout = "_Layout";
 }
+
+@using RecipeBook.Models;
+@model List<RecipeBook.Models.Ingredient>;
+
+<h1>Ingredient List</h1>
+
+@if (@Model.Count == 0)
+{
+    <h3>No Ingredients currently listed.</h3>
+}
+
+@foreach (Ingredient Ingredient in Model)
+{
+  <li>@Html.ActionLink($"{Ingredient.Name}", "Details", new { id = Ingredient.IngredientId })</li>
+}
+
+
+<nav class="navbar navbar-light">  
+  <div class="container-fluid" id="nav-background">  
+    <ul class="nav navbar-nav">
+      <button type="button" class="btn btn-dark">
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span><li>@Html.ActionLink("Add new Ingredient", "Create")</li>  
+      </button>
+    </ul>
+  </div>
+</nav>

@@ -1,3 +1,13 @@
 @{
   Layout = "_Layout";
 }
+
+@model RecipeBook.Models.Tag
+
+<h2>Add an Tag</h2>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Category)
+  @Html.TextBoxFor(model => model.Category)
+  <input type="submit" value="Add Tag" />
+}
