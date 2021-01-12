@@ -1,3 +1,19 @@
 @{
   Layout = "_Layout";
 }
+
+@model RecipeBook.Models.Recipe;
+
+<h1>Edit</h1>
+
+<h3>Edit this recipe: @Html.DisplayFor(model => model.Title)</h3>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.RecipeId)
+
+  @Html.LabelFor(model => model.Title)
+  @Html.EditorFor(model => model.Title)
+
+  <input type="submit" value="Save" />
+}

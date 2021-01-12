@@ -1,3 +1,13 @@
 @{
   Layout = "_Layout";
 }
+
+@model RecipeBook.Models.Recipe
+
+<h4>Add a new recipe</h4>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Title)
+    @Html.TextBoxFor(model => model.Title)
+    <input type="submit" value="Add new Recipe" />
+}

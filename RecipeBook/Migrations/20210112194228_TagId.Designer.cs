@@ -9,8 +9,8 @@ using RecipeBook.Models;
 namespace RecipeBook.Migrations
 {
     [DbContext(typeof(RecipeBookContext))]
-    [Migration("20210112185644_Initial")]
-    partial class Initial
+    [Migration("20210112194228_TagId")]
+    partial class TagId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

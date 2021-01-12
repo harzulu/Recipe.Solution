@@ -18,63 +18,95 @@ namespace RecipeBook.Controllers
 
     public ActionResult Index()
     {
-      return View();
+      return View(_db.Tags.ToList());
     }
 
     public ActionResult Create()
     {
+      ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Title");
       return View();
     }
 
     [HttpPost]
-    public ActionResult Create(Tag Tag, int RecipeId)
+    public ActionResult Create(Tag tag, int RecipeId)
     {
-      return View();
+      _db.Tags.Add(tag);
+      if (RecipeId != 0)
+      {
+        _db.RecipeTag.Add(new RecipeTag() { RecipeId = RecipeId, TagId = tag.TagId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
-      return View();
+      Tag thisTag = _db.Tags
+        .Include(Tag => Tag.Recipes)
+        .ThenInclude(join => join.Recipe)
+        .FirstOrDefault(Tag => Tag.TagId == id);
+      return View(thisTag);
     }
 
     public ActionResult Edit(int id)
     {
-      Tag thisTag = _db.Tags.FirstOrDefault(x => x.TagId == id);
-    return View(thisTag);
+      var thisTag = _db.Tags.FirstOrDefault(Tags => Tags.TagId == id);
+      ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Name");
+      return View(thisTag);
     }
 
     [HttpPost]
-    public ActionResult Edit(Tag Tag, int RecipeId)
+    public ActionResult Edit(Tag tag, int RecipeId)
     {
-      return View();
+      if (RecipeId != 0)
+      {
+        _db.RecipeTag.Add(new RecipeTag() { RecipeId = RecipeId, TagId = tag.TagId });
+      }
+      _db.Entry(tag).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
     public ActionResult AddRecipe(int id)
     {
-      return View();
+      var thisTag = _db.Tags.FirstOrDefault(TagsController => TagsController.TagId == id);
+      ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Name");
+      return View(thisTag);
     }
 
     [HttpPost]
-    public ActionResult AddRecipe(Tag Tag, int RecipeId)
+    public ActionResult AddRecipe(Tag tag, int RecipeId)
     {
-      return View();
+      if (RecipeId != 0)
+      {
+        _db.RecipeTag.Add(new RecipeTag() { RecipeId = RecipeId, TagId = tag.TagId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
     public ActionResult Delete(int id)
     {
-      return View();
+      var thisTag = _db.Tags.FirstOrDefault(Tags => Tags.TagId == id);
+      return View(thisTag);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      return View();
+      var thisTag = _db.Tags.FirstOrDefault(Tags => Tags.TagId == id);
+      _db.Tags.Remove(thisTag);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
     [HttpPost]
     public ActionResult DeleteRecipe(int joinId)
     {
-      return View();
+      var joinEntry = _db.RecipeTag.FirstOrDefault(entry => entry.RecipeTagId == joinId);
+        _db.RecipeTag.Remove(joinEntry);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
     }
   }
 }
