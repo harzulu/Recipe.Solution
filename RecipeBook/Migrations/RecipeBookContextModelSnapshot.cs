@@ -211,6 +211,8 @@ namespace RecipeBook.Migrations
 
                     b.Property<string>("Blurb");
 
+                    b.Property<int>("RecipeId");
+
                     b.HasKey("InstructionId");
 
                     b.ToTable("Instructions");

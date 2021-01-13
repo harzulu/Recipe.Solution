@@ -40,22 +40,18 @@ namespace RecipeBook.Controllers
     {
         ViewBag.RecipeId = id;
         return View();
-        // var thisIngredient = _db.Ingredients.FirstOrDefault(ingredients => ingredients.IngredientId == id);
-        // ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Title");
-        // return View(thisIngredient);
     }
 
     [HttpPost]
     public ActionResult Create(Ingredient ingredient, int RecipeId)
     {
         _db.Ingredients.Add(ingredient);
-        Console.WriteLine(RecipeId);
         if (RecipeId != 0)
         {
             _db.IngredientRecipe.Add(new IngredientRecipe() { RecipeId = RecipeId, IngredientId = ingredient.IngredientId });
         }
         _db.SaveChanges();
-        return RedirectToAction("Create");
+        return RedirectToAction("Create", new { id = RecipeId});
     }
 
     public ActionResult Edit(int id)

@@ -8,6 +8,26 @@
 
 <h3>Ingredient title: @Html.DisplayFor(model => model.Name)</h3>
 
+@if(@Model.Recipes.Count == 0)
+{
+  <h3>This Ingredient can not work on any Recipe yet.</h3>
+}
+else
+{
+  <h1>Recipes this Ingredient can work on</h1>
+  <ul>
+  @foreach(var join in Model.Recipes)
+  {
+    <p class="names">@join.Recipe.Title</p> <br>
+    @using (Html.BeginForm("DeleteRecipe", "Ingredients"))
+    {
+      @Html.Hidden("joinId", @join.IngredientRecipeId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ul>
+}
+
 <nav class="navbar navbar-light">  
   <div class="container-fluid" id="nav-background">  
     <ul class="nav navbar-nav">

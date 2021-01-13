@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -28,11 +29,12 @@ namespace RecipeBook.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Instruction Instruction, int RecipeId)
+    public ActionResult Create(Instruction instruction, int RecipeId)
     {
-      _db.Instructions.Add(Instruction);
+      instruction.RecipeId = RecipeId;
+      _db.Instructions.Add(instruction);
       _db.SaveChanges();
-      return RedirectToAction("Create");
+      return RedirectToAction("Create", new { id = RecipeId});
     }
 
     public ActionResult Details(int id)

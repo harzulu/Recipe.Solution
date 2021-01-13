@@ -8,6 +8,26 @@
 
 <h3>Tag title: @Html.DisplayFor(model => model.Category)</h3>
 
+@if(@Model.Recipes.Count == 0)
+{
+  <h3>This Tag can not work on any Recipe yet.</h3>
+}
+else
+{
+  <h1>Recipes this Tag can work on</h1>
+  <ul>
+  @foreach(var join in Model.Recipes)
+  {
+    <p class="names">@join.Recipe.Title</p> <br>
+    @using (Html.BeginForm("DeleteRecipe", "Tags"))
+    {
+      @Html.Hidden("joinId", @join.RecipeTagId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ul>
+}
+
 <nav class="navbar navbar-light">  
   <div class="container-fluid" id="nav-background">  
     <ul class="nav navbar-nav">

@@ -10,5 +10,6 @@ namespace RecipeBook.Models
 
         public int InstructionId { get; set; }
         public string Blurb { get; set; }
+        public int RecipeId { get; set; }
     }
 }

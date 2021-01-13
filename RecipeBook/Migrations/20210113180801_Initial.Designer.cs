@@ -9,8 +9,8 @@ using RecipeBook.Models;
 namespace RecipeBook.Migrations
 {
     [DbContext(typeof(RecipeBookContext))]
-    [Migration("20210112194228_TagId")]
-    partial class TagId
+    [Migration("20210113180801_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -212,6 +212,8 @@ namespace RecipeBook.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Blurb");
+
+                    b.Property<int>("RecipeId");
 
                     b.HasKey("InstructionId");
 

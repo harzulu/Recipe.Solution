@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -36,7 +37,7 @@ namespace RecipeBook.Controllers
         _db.RecipeTag.Add(new RecipeTag() { RecipeId = RecipeId, TagId = tag.TagId });
       }
       _db.SaveChanges();
-      return RedirectToAction("Create");
+      return RedirectToAction("Create", new { id = RecipeId});
     }
 
     public ActionResult Details(int id)
