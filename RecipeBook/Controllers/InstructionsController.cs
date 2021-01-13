@@ -21,17 +21,18 @@ namespace RecipeBook.Controllers
       return View(_db.Instructions.ToList());
     }
 
-    public ActionResult Create()
+    public ActionResult Create(int id)
     {
+      ViewBag.RecipeId = id;
       return View();
     }
 
     [HttpPost]
-    public ActionResult Create(Instruction Instruction)
+    public ActionResult Create(Instruction Instruction, int RecipeId)
     {
       _db.Instructions.Add(Instruction);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Create");
     }
 
     public ActionResult Details(int id)

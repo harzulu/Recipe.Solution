@@ -21,9 +21,9 @@ namespace RecipeBook.Controllers
       return View(_db.Tags.ToList());
     }
 
-    public ActionResult Create()
+    public ActionResult Create(int id)
     {
-      ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Title");
+      ViewBag.RecipeId = id;
       return View();
     }
 
@@ -36,7 +36,7 @@ namespace RecipeBook.Controllers
         _db.RecipeTag.Add(new RecipeTag() { RecipeId = RecipeId, TagId = tag.TagId });
       }
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Create");
     }
 
     public ActionResult Details(int id)

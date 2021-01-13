@@ -30,7 +30,7 @@ namespace RecipeBook.Controllers
     {
       _db.Recipes.Add(recipe);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Create", "Ingredients", new { id = recipe.RecipeId});
     }
 
     public ActionResult Details(int id)

@@ -7,7 +7,10 @@
 <h2>Add an Instruction</h2>
 @using (Html.BeginForm())
 {
+  @Html.Hidden("RecipeId", (int)ViewBag.RecipeId) // left off
+
   @Html.LabelFor(model => model.Blurb)
   @Html.TextBoxFor(model => model.Blurb)
   <input type="submit" value="Add Instruction" />
 }
+@Html.ActionLink("Add Tags", "Create", "Tags", new { id = ViewBag.RecipeId })

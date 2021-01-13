@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -35,22 +36,26 @@ namespace RecipeBook.Controllers
         return View (thisIngredient);
     }
 
-    public ActionResult Create()
+    public ActionResult Create(int id)
     {
-        ViewBag.IngredientId = new SelectList(_db.Recipes, "IngredientId", "Title");
+        ViewBag.RecipeId = id;
         return View();
+        // var thisIngredient = _db.Ingredients.FirstOrDefault(ingredients => ingredients.IngredientId == id);
+        // ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Title");
+        // return View(thisIngredient);
     }
 
     [HttpPost]
     public ActionResult Create(Ingredient ingredient, int RecipeId)
     {
         _db.Ingredients.Add(ingredient);
+        Console.WriteLine(RecipeId);
         if (RecipeId != 0)
         {
             _db.IngredientRecipe.Add(new IngredientRecipe() { RecipeId = RecipeId, IngredientId = ingredient.IngredientId });
         }
         _db.SaveChanges();
-        return RedirectToAction("Index");
+        return RedirectToAction("Create");
     }
 
     public ActionResult Edit(int id)
