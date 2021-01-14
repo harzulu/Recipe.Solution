@@ -5,15 +5,21 @@ using System.Linq;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace RecipeBook.Controllers
 {
   public class RecipesController : Controller
   {
     private readonly RecipeBookContext _db;
+    private readonly UserManager<ApplicationUser> _userManager; 
 
-    public RecipesController(RecipeBookContext db)
+    public RecipesController(UserManager<ApplicationUser> userManager, RecipeBookContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
@@ -22,14 +28,18 @@ namespace RecipeBook.Controllers
       return View(_db.Recipes.ToList());
     }
 
+    [Authorize]
     public ActionResult Create()
     {
       return View();
     }
 
     [HttpPost]
-    public ActionResult Create(Recipe recipe)
+    public async Task<ActionResult> Create(Recipe recipe)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      recipe.User = currentUser;
       _db.Recipes.Add(recipe);
       _db.SaveChanges();
       return RedirectToAction("Create", "Ingredients", new { id = recipe.RecipeId});
@@ -56,8 +66,11 @@ namespace RecipeBook.Controllers
       return View(thisRecipe);
     }
 
-    public ActionResult Edit(int id)
+    [Authorize]
+    public async Task<ActionResult> Edit(int id)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
       var thisRecipe = _db.Recipes.FirstOrDefault(recipe => recipe.RecipeId == id);
       return View(thisRecipe);
     }
@@ -106,8 +119,11 @@ namespace RecipeBook.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult Delete(int id)
+    [Authorize]
+    public async Task<ActionResult> Delete(int id)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
       var thisRecipe = _db.Recipes.FirstOrDefault(recipe => recipe.RecipeId == id);
       return View(thisRecipe);
     }

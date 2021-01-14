@@ -29,13 +29,11 @@
           <button type="button" class="btn btn-dark">
             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><li>@Html.ActionLink("See all Ingredients", "Index", "Ingredients")</li>
           </button>
-
-          <button type="button" class="btn btn-dark">
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span><li>@Html.ActionLink("See all Instructions", "Index", "Instructions")</li>
-          </button>
         </ul>
       </div>
     </nav>
-    @RenderBody()
+    <div id="info">
+      @RenderBody()
+    </div>
   </body>
 </html>

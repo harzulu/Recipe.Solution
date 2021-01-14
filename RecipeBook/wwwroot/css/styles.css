@@ -1,4 +1,29 @@
 body {
   margin: 0 auto;
   max-width: 1200px;
+  background-image: url("https://blog.bestbuy.ca/wp-content/uploads/2019/10/o-KITCHEN-COOKING-facebook.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+#info {
+  background-color: rgba(255, 255, 255, 0.870);
+  border: 2px solid black;
+  text-align: center;
+  list-style-position: inside;
+}
+
+h1 {
+  text-align: center;
+  text-decoration: underline solid 5px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+ul {
+  padding-left: 100px;
+  font-style: bold;
+}
+
+p {
+  padding-left: 100px;
 }

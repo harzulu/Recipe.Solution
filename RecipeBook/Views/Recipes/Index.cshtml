@@ -2,6 +2,7 @@
   Layout = "_Layout";
 }
 
+@using System.Security.Claims
 @using RecipeBook.Models;
 @model List<RecipeBook.Models.Recipe>;
 
@@ -17,13 +18,15 @@
   <li>@Html.ActionLink($"{recipe.Title}", "Details", new { id = recipe.RecipeId })</li>
 }
 
-
-<nav class="navbar navbar-light">  
-  <div class="container-fluid" id="nav-background">  
-    <ul class="nav navbar-nav">
-      <button type="button" class="btn btn-dark">
-        <span class="glyphicon glyphicon-book" aria-hidden="true"></span><li>@Html.ActionLink("Add new recipe", "Create")</li>  
-      </button>
-    </ul>
-  </div>
-</nav>
+@if (User.Identity.IsAuthenticated)
+{
+  <nav class="navbar navbar-light">  
+    <div class="container-fluid" id="nav-background">  
+      <ul class="nav navbar-nav">
+        <button type="button" class="btn btn-dark">
+          <span class="glyphicon glyphicon-book" aria-hidden="true"></span><li>@Html.ActionLink("Add new recipe", "Create")</li>  
+        </button>
+      </ul>
+    </div>
+  </nav>
+}

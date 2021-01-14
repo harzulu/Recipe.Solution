@@ -5,3 +5,18 @@
 <p>Welcome to your very own recipe book,<br>
   Feel free to add any recipes you make or are excited to try, or feel free to explore by ingredient or tag to find something you may enjoy.
 </p>
+
+@using (Html.BeginForm())
+{
+  <p>Care to search our records:</p>
+  <select class="form-control" id="SearchOption" name="SearchOption">
+    <option>Select option</option> 
+    <option>Tag</option> 
+    <option>Ingredient</option> 
+  </select>
+
+  @Html.Label("Search Term: ");
+  @Html.TextBox("SearchTerm");
+  <input type="submit" value="Search!" />
+
+}
